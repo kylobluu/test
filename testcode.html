@@ -3,16 +3,37 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Python Code in HTML</title>
+    <title>Upload Excel File</title>
 </head>
 <body>
-    <h1>Python Code for File Upload in Google Colab</h1>
-    <pre>
-        <code>
-from google.colab import files
-data = files.upload()
-file_name = list(data.keys())[0]
-        </code>
-    </pre>
+    <h2>Upload Your Excel File</h2>
+    <form id="uploadForm" method="POST" enctype="multipart/form-data">
+        <input type="file" id="excelFile" name="excelFile" accept=".xlsx, .xls" required>
+        <button type="submit">Upload</button>
+    </form>
+
+    <script>
+        document.getElementById('uploadForm').addEventListener('submit', async function (event) {
+            event.preventDefault();
+
+            const formData = new FormData();
+            const fileInput = document.getElementById('excelFile');
+            formData.append('excelFile', fileInput.files[0]);
+
+            try {
+                const response = await fetch('/upload', {
+                    method: 'POST',
+                    body: formData
+                });
+
+                const result = await response.json();
+                console.log('DataFrame Preview:', result.preview);
+                alert('File uploaded successfully!');
+            } catch (error) {
+                console.error('Error uploading file:', error);
+                alert('Error uploading file!');
+            }
+        });
+    </script>
 </body>
 </html>
