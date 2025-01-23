@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Python Code in HTML</title>
+</head>
+<body>
+    <h1>Python Code for File Upload in Google Colab</h1>
+    <pre>
+        <code>
+from google.colab import files
+data = files.upload()
+file_name = list(data.keys())[0]
+        </code>
+    </pre>
+</body>
+</html>
